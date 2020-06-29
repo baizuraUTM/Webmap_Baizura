@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Single marker</title>
+<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+<script src='https://api.mapbox.com/mapbox.js/v3.3.0/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v3.3.0/mapbox.css' rel='stylesheet' />
+<style>
+  body { margin:0; padding:0; }
+  #map { position:absolute; top:0; bottom:0; width:100%; }
+
+.legend {
+background-color: #fff;
+border-radius: 3px;
+bottom: 30px;
+box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+padding: 10px;
+position: absolute;
+right: 10px;
+z-index: 1;
+}
+ 
+.legend h4 {
+margin: 0 0 10px;
+}
+ 
+.legend div span {
+border-radius: 50%;
+display: inline-block;
+height: 10px;
+margin-right: 5px;
+width: 10px;
+}
+
+</style>
+</head>
+<body>
+
+<div id="map"></div>
+ 
+<div id="state-legend" class="legend">
+<h4>COVID-19 Cases by State in Malaysia</h4>
+
+<div><span style="background-color: #BD0026"></span>500-1000</div>
+<div><span style="background-color: #E31A1C"></span>200-500</div>
+<div><span style="background-color: #FC4E2A"></span>100-200</div>
+<div><span style="background-color: #FD8D3C"></span>50-100</div>
+<div><span style="background-color: #FEB24C"></span>0-50</div>
+</div>
+ 
+
+
+<script>
+L.mapbox.accessToken = 'pk.eyJ1Ijoic2hhZHllbGxlIiwiYSI6ImNrOTZ0OWtkZDB6YmgzZ3FoZm9pYXJpbHQifQ.Cm5N0SVn2cV4zWXnf7G0kQ';
+var map = L.mapbox.map('map')
+    .setView([ 1.557891,103.637102], 16)
+    .addLayer(L.mapbox.styleLayer('mapbox://styles/shadyelle/ck988m4680wo81io6iw2cz9an'));
+	
+var zoomThreshold = 4;	
+
+L.mapbox.featureLayer({
+    // this feature is in the GeoJSON format: see geojson.org
+    // for the full specification
+    type: 'Feature',
+    geometry: {
+        type: 'Point',
+        // coordinates here are in longitude, latitude order because
+        // x, y is the standard for GeoJSON and many formats
+        coordinates: [
+          103.637102, 1.557891
+          
+        ]
+    },
+    properties: {
+        title: 'Universiti Teknologi Malaysia',
+        description: 'Covid-cases = zero',
+        // one can customize markers by adding simplestyle properties
+        // https://www.mapbox.com/guides/an-open-platform/#simplestyle
+        'marker-size': 'large',
+        'marker-color': '#BE9A6B',
+        'marker-symbol': 'building'
+    }
+}).addTo(map);
+</script>
+
+</body>
+</html>
+
